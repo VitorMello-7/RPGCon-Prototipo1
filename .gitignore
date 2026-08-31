@@ -1,0 +1,41 @@
+# --- Python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# --- venv -------------------------------------------------------------------
+venv/
+.venv/
+env/
+
+# --- Django -----------------------------------------------------------------
+# O banco fica de fora: é estado de estudo, não código. Ver nota sobre backup.
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+*.sqlite3-*
+backups/
+
+# Segredos e config local (SECRET_KEY, ALLOWED_HOSTS da tailnet)
+.env
+local_settings.py
+
+# Gerados
+/staticfiles/
+/media/
+
+# --- Editor -----------------------------------------------------------------
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+
+# --- Windows ----------------------------------------------------------------
+Thumbs.db
+desktop.ini
+*.lnk
+
+# --- NÃO ignorar ------------------------------------------------------------
+# packs/       → o conteúdo é o ativo do projeto, versione sempre
+# */migrations/ → migrations são código, versione sempre

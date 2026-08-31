@@ -1,0 +1,23 @@
+﻿# Tudo que é específico do concurso mora aqui. Nada disso vai para o Python (5.2).
+slug: dataprev-2026-p6
+name: Dataprev 2026 — Perfil 6 (Gestão de Serviços de TIC)
+
+exam_date: 2026-10-11
+review_only_days: 14      # 2.1 — últimos 14 dias sem conteúdo novo
+
+desired_retention: 0.90   # 2.2
+mature_threshold_days: 21 # 3.3 — acima disso o item deixa de contar como HP
+
+block_size: 15            # 3.5 — revisar no dia 7
+blocks_per_session: 3
+player_hp: 5              # 3.4
+fast_answer_seconds: 20   # 3.1
+boss_unlock_ratio: 0.70   # 3.6
+
+files:
+  - itil.yaml
+  # - cobit.yaml
+  # - pmbok.yaml
+  # - lei-13303.yaml
+  # - in-sgd.yaml
+  # - infra-redes-bd.yaml
