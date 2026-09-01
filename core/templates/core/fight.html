@@ -48,5 +48,5 @@
 {% endif %}
 
 {% if is_new %}<p class="meta">Item novo — não causa dano em você.</p>{% endif %}
-<p class="meta"><a href="{% url 'abandon' pack.slug %}">Encerrar expedição</a></p>
+<p class="meta"><a href="{% url 'map' pack.slug %}">Mapa</a> · <a href="{% url 'abandon' pack.slug %}">Encerrar expedição</a></p>
 {% endblock %}

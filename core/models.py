@@ -147,6 +147,31 @@ class Topic(models.Model):
     def boss_unlocked(self, player) -> bool:  # 3.6
         return self.maturity_ratio(player) >= self.pack.boss_unlock_ratio
 
+    # -- 3.7: mapa de desbloqueio -------------------------------------------
+
+    def prerequisites(self):
+        """Tópicos que precisam ser dominados antes deste."""
+        return self.unlocked_by.all()
+
+    def is_unlocked(self, player) -> bool:
+        """Liberado quando todo pré-requisito atinge o limiar do pack.
+
+        Sem pré-requisito, está sempre liberado — a maioria dos tópicos.
+        """
+        threshold = self.pack.boss_unlock_ratio
+        for prereq in self.prerequisites():
+            if prereq.maturity_ratio(player) < threshold:
+                return False
+        return True
+
+    def locked_reason(self, player):
+        """Quais pré-requisitos ainda faltam, para a tela do mapa."""
+        threshold = self.pack.boss_unlock_ratio
+        return [
+            prereq for prereq in self.prerequisites()
+            if prereq.maturity_ratio(player) < threshold
+        ]
+
 
 # ---------------------------------------------------------------- item
 

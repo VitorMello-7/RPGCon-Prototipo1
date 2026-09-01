@@ -103,12 +103,24 @@ def introduced_today(player, pack) -> int:
 
 
 def pending_new(player, pack) -> int:
-    """Itens do pool de revisão que o jogador nunca viu."""
-    return (
-        Item.objects.filter(pack=pack, retired=False, pool=Item.POOL_REVIEW)
-        .exclude(cards__player=player)
-        .count()
-    )
+    """Itens do pool de revisão que o jogador nunca viu E pode alcançar.
+
+    Conteúdo trancado pelo mapa fica de fora: contá-lo inflaria a cota diária
+    com material que o jogo não serve, e a fila fecharia todo dia com a cota
+    por cumprir. Ao desbloquear, a cota sobe — que é o comportamento certo.
+    """
+    from .models import Topic
+
+    locked = [
+        topic.path for topic in Topic.objects.filter(pack=pack)
+        if not topic.is_unlocked(player)
+    ]
+    qs = Item.objects.filter(
+        pack=pack, retired=False, pool=Item.POOL_REVIEW
+    ).exclude(cards__player=player)
+    for path in locked:
+        qs = qs.exclude(topic__path__startswith=path)
+    return qs.count()
 
 
 def daily_new_quota(player, pack) -> int:
@@ -231,6 +243,8 @@ def pick_enemies(player, pack, count=None):
     count = count or pack.blocks_per_session
     candidates = []
     for topic in Topic.objects.filter(pack=pack, children__isnull=True):
+        if not topic.is_unlocked(player):      # 3.7: o mapa filtra de verdade
+            continue
         available = available_in_topic(player, pack, topic)
         if available:
             candidates.append((available * topic.weight, topic))

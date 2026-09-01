@@ -11,6 +11,7 @@ urlpatterns = [
     path("<slug:slug>/responder/", views.answer, name="answer"),
 
     # expedicao (3.5)
+    path("<slug:slug>/mapa/", combat.game_map, name="map"),
     path("<slug:slug>/expedicao/", combat.expedition, name="expedition"),
     path("<slug:slug>/expedicao/lutar/", combat.fight, name="fight"),
     path("<slug:slug>/expedicao/revelar/", combat.reveal, name="combat_reveal"),

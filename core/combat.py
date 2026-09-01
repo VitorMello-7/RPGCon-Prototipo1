@@ -217,6 +217,33 @@ def summary(request, slug, pk):
     })
 
 
+def game_map(request, slug):
+    """Mapa do edital (3.7). Sem XP, sem loot: só o que abre o quê."""
+    pack = get_object_or_404(Pack, slug=slug)
+    player = get_player()
+
+    nodes = []
+    for topic in Topic.objects.filter(pack=pack).order_by("path"):
+        hp_current, hp_max = topic.hp(player)
+        if not hp_max:
+            continue
+        missing = topic.locked_reason(player)
+        nodes.append({
+            "topic": topic,
+            "depth": topic.path.count("/"),
+            "pct": 100 * (hp_max - hp_current) / hp_max,
+            "items": hp_max,
+            "locked": bool(missing),
+            "missing": missing,
+            "opens": list(topic.unlocks.all()),
+            "boss_ready": topic.boss_unlocked(player),
+        })
+    return render(request, "core/map.html", {
+        "pack": pack, "nodes": nodes,
+        "threshold": round(100 * pack.boss_unlock_ratio),
+    })
+
+
 def abandon(request, slug):
     """Sai da expedição sem perder nada — a fila fica intacta."""
     pack = get_object_or_404(Pack, slug=slug)

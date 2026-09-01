@@ -5,6 +5,7 @@
   <p>Nada vencido agora e a cota de conteúdo novo do dia acabou.</p>
   <p class="meta">Cards em aprendizado voltam em alguns minutos. Prova em {{ pack.exam_date }}.</p>
   <a href="{% url 'study' pack.slug %}" role="button" class="secondary outline">Modo simples</a>
+<a href="{% url 'map' pack.slug %}" role="button" class="secondary outline">Mapa</a>
 {% else %}
   <h3>Nenhum pack importado</h3>
   <p class="meta">Rode <code>manage.py import_pack</code> primeiro.</p>

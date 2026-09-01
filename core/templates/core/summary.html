@@ -19,5 +19,6 @@
 {% endif %}
 
 <a href="{% url 'expedition' pack.slug %}" role="button">Nova expedição</a>
+<a href="{% url 'map' pack.slug %}" role="button" class="secondary outline">Mapa</a>
 <a href="{% url 'study' pack.slug %}" role="button" class="secondary outline">Modo simples</a>
 {% endblock %}

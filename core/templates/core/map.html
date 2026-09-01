@@ -1,0 +1,36 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+<h3>Mapa do edital</h3>
+<p class="meta">Um tópico abre o seguinte ao chegar em {{ threshold }}% dominado.</p>
+
+{% for node in nodes %}
+  <article style="margin-left: {{ node.depth }}rem; padding: .7rem 1rem;">
+    <div class="hud">
+      <div>
+        <strong>{% if node.locked %}🔒 {% endif %}{{ node.topic.name }}</strong>
+        <span class="meta">· {{ node.items }} itens</span>
+      </div>
+      <span class="meta">{{ node.pct|floatformat:1 }}%</span>
+    </div>
+    <progress value="{{ node.pct|floatformat:2 }}" max="100"></progress>
+
+    {% if node.locked %}
+      <p class="meta">Trancado até dominar:
+        {% for t in node.missing %}{{ t.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+      </p>
+    {% endif %}
+    {% if node.opens %}
+      <p class="meta">Abre:
+        {% for t in node.opens %}{{ t.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+      </p>
+    {% endif %}
+    {% if node.boss_ready %}<p class="meta">Boss disponível</p>{% endif %}
+  </article>
+{% empty %}
+  <p class="meta">Nenhum tópico com itens ainda.</p>
+{% endfor %}
+
+<a href="{% url 'expedition' pack.slug %}" role="button">Expedição</a>
+<a href="{% url 'study' pack.slug %}" role="button" class="secondary outline">Modo simples</a>
+{% endblock %}
