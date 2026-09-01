@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+{% if correct is True %}
+  <h3>Certo</h3>
+{% elif correct is False %}
+  <h3>Errado</h3>
+  <p><strong>Gabarito:</strong> {{ correct_text }}</p>
+{% else %}
+  <h3>Registrado</h3>
+{% endif %}
+
+{% if item.comment %}<p>{{ item.comment }}</p>{% endif %}
+<p class="meta">
+  {{ item.source }} · {{ elapsed_s }}s · rating {{ rating }}
+  {% if grew %}· retenção subiu{% endif %}
+</p>
+
+<a href="{% url 'study' pack.slug %}" role="button">Próximo</a>
+{% endblock %}

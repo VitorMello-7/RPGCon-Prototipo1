@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% if pack %}
+  <h3>Fila de hoje concluída</h3>
+  <p>Nada vencido e a cota de conteúdo novo do dia acabou.</p>
+  <p class="meta">Prova em {{ pack.exam_date }}.</p>
+{% else %}
+  <h3>Nenhum pack importado</h3>
+  <p class="meta">Rode <code>manage.py import_pack</code> primeiro.</p>
+{% endif %}
+{% endblock %}

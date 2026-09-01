@@ -60,20 +60,15 @@ class Pack(models.Model):
         today = today or timezone.localdate()
         return (self.exam_date - today).days
 
-    def daily_new_quota(self, today: dt.date | None = None) -> int:
-        """Itens novos por dia para cobrir o pool de revisão dentro da janela.
+    def intro_days_left(self, today: dt.date | None = None) -> int:
+        """Dias úteis restantes para introduzir conteúdo novo (0 = janela fechada).
 
-        Recalculado a cada chamada: se você atrasar, a cota sobe sozinha.
-        Fora da janela de introdução, é zero.
+        A política de cota mora em scheduling.daily_new_quota — aqui só o prazo.
         """
         today = today or timezone.localdate()
         if today > self.intro_deadline:
             return 0
-        remaining_days = max((self.intro_deadline - today).days, 1)
-        pending = Item.objects.filter(
-            pack=self, retired=False, pool=Item.POOL_REVIEW,
-        ).exclude(cards__isnull=False).count()
-        return -(-pending // remaining_days)  # ceil
+        return max((self.intro_deadline - today).days, 1)
 
 
 # ---------------------------------------------------------------- topic

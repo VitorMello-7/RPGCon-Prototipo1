@@ -1,0 +1,26 @@
+{% load static %}<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ pack.name|default:"Estudo" }}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <style>
+    main { max-width: 42rem; padding: 1rem; }
+    .prompt { font-size: 1.15rem; line-height: 1.5; margin: 1.5rem 0; }
+    .choice button { width: 100%; text-align: left; margin-bottom: .5rem;
+                     white-space: normal; height: auto; padding: .9rem 1rem; }
+    .ratings { display: grid; grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+    .ratings button { padding: 1rem .5rem; }
+    .meta { color: var(--pico-muted-color); font-size: .8rem; }
+    .back { background: var(--pico-card-sectioning-background-color);
+            padding: 1rem; border-radius: var(--pico-border-radius); }
+    form { margin: 0; }
+  </style>
+</head>
+<body>
+<main class="container">
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>

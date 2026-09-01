@@ -1,0 +1,49 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+<p class="meta">
+  {{ item.topic.name }}
+  {% if is_new %}· <strong>novo</strong>{% endif %}
+  · {{ remaining }} para hoje
+</p>
+
+{% if item.kind == "mcq" %}
+
+  <div class="prompt">{{ item.payload.stem|linebreaksbr }}</div>
+  {% for index, text in choices %}
+    <form class="choice" method="post" action="{% url 'answer' pack.slug %}">
+      {% csrf_token %}
+      <input type="hidden" name="choice" value="{{ index }}">
+      <button type="submit" class="secondary outline">{{ text }}</button>
+    </form>
+  {% endfor %}
+  <form method="post" action="{% url 'answer' pack.slug %}">
+    {% csrf_token %}
+    <input type="hidden" name="choice" value="-1">
+    <input type="hidden" name="guess" value="1">
+    <button type="submit" class="outline contrast">Não sei / foi chute</button>
+  </form>
+
+{% else %}
+
+  <div class="prompt">{{ item.payload.front|linebreaksbr }}</div>
+
+  {% if revealed %}
+    <div class="back">{{ item.payload.back|linebreaksbr }}</div>
+    {% if item.comment %}<p class="meta">{{ item.comment }}</p>{% endif %}
+    <p class="meta">{{ item.source }}</p>
+    <form method="post" action="{% url 'answer' pack.slug %}">
+      {% csrf_token %}
+      <div class="ratings">
+        <button name="rating" value="1" class="contrast">Errei</button>
+        <button name="rating" value="2" class="secondary">Difícil</button>
+        <button name="rating" value="3">Bom</button>
+        <button name="rating" value="4" class="outline">Fácil</button>
+      </div>
+    </form>
+  {% else %}
+    <a href="{% url 'reveal' pack.slug %}" role="button" class="secondary">Mostrar resposta</a>
+  {% endif %}
+
+{% endif %}
+{% endblock %}
