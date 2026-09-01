@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+{% if downed %}
+  <h3>Você caiu</h3>
+  <p>A fila continua intacta para amanhã. Nada foi perdido.</p>
+{% elif session.outcome == "cleared" %}
+  <h3>Expedição concluída</h3>
+{% else %}
+  <h3>Expedição encerrada</h3>
+{% endif %}
+
+<p><strong>{{ session.cards_done }}</strong> cards ·
+   <strong>{{ damage }}</strong> dias de retenção somados</p>
+
+{% if defeated %}
+  <p class="meta">Enfrentados:</p>
+  <ul>{% for topic in defeated %}<li>{{ topic.name }}</li>{% endfor %}</ul>
+{% endif %}
+
+<a href="{% url 'expedition' pack.slug %}" role="button">Nova expedição</a>
+<a href="{% url 'study' pack.slug %}" role="button" class="secondary outline">Modo simples</a>
+{% endblock %}

@@ -118,16 +118,27 @@ class Topic(models.Model):
         )
 
     def hp(self, player) -> tuple[int, int]:
-        """(hp_atual, hp_max). Morre quando o tópico está de fato retido."""
-        hp_max = self.review_items().count()
-        mature = Card.objects.filter(
-            player=player,
-            item__in=self.review_items(),
-            stability__gte=self.pack.mature_threshold_days,
-        ).count()
-        return hp_max - mature, hp_max
+        """(hp_atual, hp_max) — contínuo, proporcional à estabilidade.
+
+        Cada item contribui com 1 ponto de HP quando nunca foi visto e 0 quando
+        atinge a maturidade; entre os dois, cai linearmente. Maturidade binária
+        deixaria a barra congelada por três semanas, que é o mesmo que não ter
+        barra (3.3).
+        """
+        items = list(self.review_items().values_list("id", flat=True))
+        hp_max = len(items)
+        if not hp_max:
+            return 0, 0
+        threshold = self.pack.mature_threshold_days
+        remaining = float(hp_max)
+        for stability in Card.objects.filter(
+            player=player, item_id__in=items
+        ).values_list("stability", flat=True):
+            remaining -= min(stability / threshold, 1.0)
+        return max(remaining, 0.0), hp_max
 
     def maturity_ratio(self, player) -> float:
+        """Fração dominada, contínua. É o que move a barra (3.3)."""
         current, total = self.hp(player)
         if not total:
             return 0.0
@@ -257,6 +268,16 @@ class Session(models.Model):
     started_at = models.DateTimeField(auto_now_add=True)
     ended_at = models.DateTimeField(null=True, blank=True)
     hp_remaining = models.IntegerField(default=0)
+
+    # 3.5: os 3 inimigos da expedicao, por path de topico
+    enemies = models.JSONField(default=list)
+    enemy_index = models.PositiveIntegerField(default=0)
+    cards_in_block = models.PositiveIntegerField(default=0)
+    cards_done = models.PositiveIntegerField(default=0)
+
+    # 3.2/3.3: dano = ganho de estabilidade em dias. Uma contabilidade so.
+    damage = models.FloatField(default=0.0)
+
     is_boss = models.BooleanField(default=False)
     boss_topic = models.ForeignKey(
         Topic, null=True, blank=True, on_delete=models.SET_NULL, related_name="boss_runs"

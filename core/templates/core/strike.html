@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+{% if correct is True %}<h3>Acertou</h3>
+{% elif correct is False %}<h3>Errou</h3><p><strong>Gabarito:</strong> {{ correct_text }}</p>
+{% else %}<h3>Turno resolvido</h3>{% endif %}
+
+{% if damage %}
+  <p><strong>{{ damage }}</strong> dias de retenção somados a {{ enemy.name }}.</p>
+{% else %}
+  <p class="meta">Sem dano — o card volta em instantes.</p>
+{% endif %}
+
+{% if took_hit %}<p class="meta">−1 ♥ · restam {{ session.hp_remaining }}</p>{% endif %}
+{% if was_new and correct is False %}<p class="meta">Item novo: sem dano em você.</p>{% endif %}
+
+{% if item.comment %}<p>{{ item.comment }}</p>{% endif %}
+<p class="meta">{{ item.source }}</p>
+
+<progress value="{{ enemy_pct|floatformat:2 }}" max="100"></progress>
+<p class="meta">{{ enemy_pct|floatformat:1 }}% dominado · {{ enemy_hp|floatformat:0 }} de {{ enemy_hp_max }} restando</p>
+
+<a href="{% url 'fight' pack.slug %}" role="button">Continuar</a>
+{% endblock %}

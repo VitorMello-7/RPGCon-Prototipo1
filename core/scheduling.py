@@ -130,8 +130,12 @@ def new_items_allowed(player, pack) -> int:
     return max(daily_new_quota(player, pack) - introduced_today(player, pack), 0)
 
 
-def next_due_card(player, pack) -> Card | None:
-    """Card vencido de maior prioridade: atraso × peso do tópico (2.3)."""
+def next_due_card(player, pack, topic=None) -> Card | None:
+    """Card vencido de maior prioridade: atraso × peso do tópico (2.3).
+
+    Com `topic`, restringe à subárvore dele — é assim que um inimigo serve
+    apenas os cards do seu próprio assunto (3.5).
+    """
     now = timezone.now()
     due = (
         Card.objects.filter(
@@ -143,6 +147,8 @@ def next_due_card(player, pack) -> Card | None:
         )
         .select_related("item", "item__topic", "item__pack")
     )
+    if topic is not None:
+        due = due.filter(item__topic__path__startswith=topic.path)
     best, best_score = None, -1.0
     for card in due:
         overdue_days = max((now - card.due).total_seconds() / 86400, 0.0) + 1.0
@@ -152,25 +158,27 @@ def next_due_card(player, pack) -> Card | None:
     return best
 
 
-def next_new_item(player, pack) -> Item | None:
+def next_new_item(player, pack, topic=None) -> Item | None:
     """Próximo item nunca visto, respeitando a cota diária."""
     if new_items_allowed(player, pack) <= 0:
         return None
+    qs = Item.objects.filter(pack=pack, retired=False, pool=Item.POOL_REVIEW)
+    if topic is not None:
+        qs = qs.filter(topic__path__startswith=topic.path)
     return (
-        Item.objects.filter(pack=pack, retired=False, pool=Item.POOL_REVIEW)
-        .exclude(cards__player=player)
+        qs.exclude(cards__player=player)
         .select_related("topic", "pack")
         .order_by("-topic__weight", "topic__order", "id")
         .first()
     )
 
 
-def next_card(player, pack) -> tuple[Card | None, bool]:
+def next_card(player, pack, topic=None) -> tuple[Card | None, bool]:
     """(card, is_new). Vencidos primeiro; conteúdo novo só depois."""
-    card = next_due_card(player, pack)
+    card = next_due_card(player, pack, topic=topic)
     if card:
         return card, False
-    item = next_new_item(player, pack)
+    item = next_new_item(player, pack, topic=topic)
     if item:
         card, _ = get_or_create_card(player, item)
         return card, True
@@ -189,3 +197,42 @@ def remaining_today(player, pack) -> int:
     ).count()
     cap = pack.block_size * pack.blocks_per_session
     return min(due + new_items_allowed(player, pack), cap)
+
+
+# ------------------------------------------------------------------ 3.5
+
+def available_in_topic(player, pack, topic) -> int:
+    """Cards que o tópico consegue servir agora: vencidos + novos permitidos."""
+    now = timezone.now()
+    due = Card.objects.filter(
+        player=player, item__pack=pack, item__retired=False,
+        item__pool=Item.POOL_REVIEW, due__lte=now,
+        item__topic__path__startswith=topic.path,
+    ).count()
+    unseen = (
+        Item.objects.filter(
+            pack=pack, retired=False, pool=Item.POOL_REVIEW,
+            topic__path__startswith=topic.path,
+        )
+        .exclude(cards__player=player)
+        .count()
+    )
+    return due + min(unseen, new_items_allowed(player, pack))
+
+
+def pick_enemies(player, pack, count=None):
+    """Escolhe os inimigos da expedição (3.5).
+
+    Só tópicos que têm carta para servir agora, ordenados por
+    disponibilidade × peso (2.4). Tópicos-folha, para o bloco ficar coeso.
+    """
+    from .models import Topic
+
+    count = count or pack.blocks_per_session
+    candidates = []
+    for topic in Topic.objects.filter(pack=pack, children__isnull=True):
+        available = available_in_topic(player, pack, topic)
+        if available:
+            candidates.append((available * topic.weight, topic))
+    candidates.sort(key=lambda pair: pair[0], reverse=True)
+    return [topic for _, topic in candidates[:count]]
