@@ -1,0 +1,400 @@
+# Módulo I — Conhecimentos Gerais (40 questões, peso 1, comum a todos os
+# perfis). Não é para aprofundar — é para não ZERAR nenhuma disciplina, o
+# que já elimina o candidato independente da nota total (edital 9.17.b).
+# Cota mínima, não meta de domínio.
+#
+# Tratamento desigual por disciplina, de propósito:
+#   - Legislação SI/PD: 4 leis públicas, texto oficial buscado e citado por
+#     artigo (mesmo padrão da Lei 13.303) — é a parte mais "cardável" com
+#     confiança total, e vale o investimento por ser só 5 questões de risco
+#     concentrado.
+#   - Raciocínio Lógico: conceitos estáveis, cloze funciona bem.
+#   - IA (dentro de Atualidades e IA): só a parte de FUNDAMENTOS, que é
+#     estável. A parte de "atualidades" (notícias, eventos recentes) NÃO
+#     está aqui — vira void rápido num pack versionado. Isso precisa ser
+#     estudado perto da prova, com fonte viva (jornal/revista), não aqui.
+#   - Português: cloze não ensina compreensão de texto, que é a maior parte
+#     da nota (12 questões). Só cobre as regras gramaticais mais cobradas
+#     como pegadinha isolada (crase, concordância, colocação pronominal).
+#     Não substitui treino de leitura e reescrita de texto.
+#   - Inglês: mesmo problema do Português, ainda mais agudo — compreensão de
+#     texto em inglês não é card. Cobertura aqui é decorativa, não uma
+#     defesa real contra zerar. Se você tem lacuna real em inglês, isso
+#     exige prática de leitura, não este pack.
+
+topics:
+  - id: modulo1
+    name: Módulo I — Conhecimentos Gerais
+    weight: 1.0
+    order: 5
+
+  - id: modulo1/legislacao-si-pd
+    name: Legislação de Segurança da Informação e Proteção de Dados
+    weight: 2.0
+    order: 1
+
+  - id: modulo1/raciocinio-logico
+    name: Raciocínio Lógico
+    weight: 1.5
+    order: 2
+
+  - id: modulo1/ia-fundamentos
+    name: Inteligência Artificial — Fundamentos
+    weight: 1.5
+    order: 3
+
+  - id: modulo1/portugues
+    name: Português — Pegadinhas Gramaticais
+    weight: 1.0
+    order: 4
+
+  - id: modulo1/ingles
+    name: Inglês — Cobertura Mínima
+    weight: 0.5
+    order: 5
+
+items:
+
+  # --- Lei 12.527/2011 — LAI, texto oficial via câmara.leg.br --------------
+
+  - id: lai-objeto
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 12.527/2011 (LAI), art. 1º"
+    front: "LAI (Lei 12.527/2011) — o que ela regula (art. 1º)?"
+    back: >
+      Os procedimentos a serem observados pela União, Estados, DF e
+      Municípios para garantir o acesso a informações previsto no art. 5º,
+      XXXIII, no art. 37, § 3º, II, e no art. 216, § 2º, da Constituição
+      Federal.
+
+  - id: lai-principio-publicidade
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 12.527/2011 (LAI), art. 3º, I"
+    front: "LAI, art. 3º, I — a diretriz-regra sobre publicidade e sigilo"
+    back: "Observância da publicidade como preceito geral e do sigilo como exceção."
+
+  - id: lai-prazos-sigilo
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 12.527/2011 (LAI), art. 24, § 1º"
+    front: "LAI, art. 24 — prazos máximos de restrição de acesso para informação ultrassecreta, secreta e reservada"
+    back: "Ultrassecreta: 25 anos. Secreta: 15 anos. Reservada: 5 anos — contados da data de produção."
+
+  - id: lai-prazo-resposta
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 12.527/2011 (LAI), art. 11, §§ 1º-2º"
+    front: "LAI, art. 11 — prazo para responder um pedido de acesso à informação, e se é prorrogável"
+    back: "Até 20 dias, prorrogável por mais 10 dias mediante justificativa expressa."
+
+  # --- Lei 12.737/2012 — art. 2º (invasão de dispositivo informático) -------
+
+  - id: lei12737-invasao-dispositivo
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 12.737/2012, art. 2º (CP, art. 154-A) — pena atualizada pela Lei 14.155/2021"
+    front: "Lei 12.737/2012 (art. 2º, que criou o art. 154-A do CP) — conduta e pena ATUAL (pós Lei 14.155/2021)"
+    back: >
+      Invadir dispositivo informático alheio, mediante violação indevida de
+      mecanismo de segurança, para obter, adulterar ou destruir dados sem
+      autorização. Pena atual: reclusão de 1 a 4 anos e multa.
+    comment: >
+      Pegadinha: a pena ORIGINAL de 2012 era detenção de 3 meses a 1 ano.
+      A Lei 14.155/2021 aumentou para reclusão de 1 a 4 anos. Se a questão
+      não disser "conforme redação atual", desconfie — mas em prova de
+      2026 o esperado é a pena atual.
+
+  - id: lei12737-causa-aumento
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 12.737/2012, art. 2º (CP, art. 154-A, §§ 2º-3º)"
+    front: "Art. 154-A do CP — o que aumenta a pena, e o que a torna qualificada (pena maior, de 2 a 5 anos)?"
+    back: >
+      Aumenta de 1/6 a 1/3 se resultar prejuízo econômico. Torna qualificada
+      (reclusão de 2 a 5 anos) se a invasão resultar em obtenção de
+      comunicações eletrônicas privadas, segredos comercial/industrial,
+      informações sigilosas, ou controle remoto não autorizado do
+      dispositivo.
+
+  # --- Lei 12.965/2014 — Marco Civil da Internet -----------------------------
+
+  - id: marco-civil-principios
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 12.965/2014 (Marco Civil), art. 3º"
+    front: "Marco Civil da Internet, art. 3º — cite 4 dos princípios de uso da internet no Brasil"
+    back: >
+      Liberdade de expressão, comunicação e manifestação de pensamento;
+      proteção da privacidade; proteção dos dados pessoais; preservação e
+      garantia da NEUTRALIDADE DE REDE (entre outros: estabilidade e
+      segurança da rede, responsabilização dos agentes, natureza
+      participativa, liberdade dos modelos de negócio).
+
+  - id: marco-civil-neutralidade-rede
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 12.965/2014 (Marco Civil), art. 9º"
+    front: "Marco Civil, art. 9º — o que a neutralidade de rede exige de quem transmite/roteia pacotes?"
+    back: >
+      Tratar de forma isonômica quaisquer pacotes de dados, sem distinção
+      por conteúdo, origem, destino, serviço, terminal ou aplicação.
+
+  - id: marco-civil-guarda-registros
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 12.965/2014 (Marco Civil), arts. 13 e 15"
+    front: "Marco Civil — por quanto tempo devem ser guardados os registros de CONEXÃO (art. 13) e os registros de ACESSO A APLICAÇÕES (art. 15)?"
+    back: "Registros de conexão: 1 (um) ano. Registros de acesso a aplicações: 6 (seis) meses."
+    comment: "Distrator clássico: trocar os dois prazos entre si."
+
+  # --- Lei 13.709/2018 — LGPD --------------------------------------------------
+
+  - id: lgpd-objeto
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 13.709/2018 (LGPD), art. 1º"
+    front: "LGPD, art. 1º — o que ela dispõe e qual seu objetivo declarado?"
+    back: >
+      Dispõe sobre o tratamento de dados pessoais, inclusive nos meios
+      digitais, por pessoa natural ou jurídica de direito público ou
+      privado, com o objetivo de proteger os direitos fundamentais de
+      liberdade e privacidade e o livre desenvolvimento da personalidade da
+      pessoa natural.
+
+  - id: lgpd-dado-pessoal-vs-sensivel
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 13.709/2018 (LGPD), art. 5º, I e II"
+    front: "LGPD, art. 5º — diferença entre dado pessoal (I) e dado pessoal sensível (II)"
+    back: >
+      Dado pessoal: informação relacionada a pessoa natural identificada ou
+      identificável. Dado pessoal sensível: dado pessoal sobre origem
+      racial/étnica, convicção religiosa, opinião política, filiação
+      sindical ou religiosa/filosófica/política, saúde, vida sexual, dado
+      genético ou biométrico.
+
+  - id: lgpd-controlador-vs-operador
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 13.709/2018 (LGPD), art. 5º, VI e VII"
+    front: "LGPD, art. 5º — diferença entre controlador (VI) e operador (VII)"
+    back: >
+      Controlador: a quem competem as DECISÕES referentes ao tratamento de
+      dados pessoais. Operador: realiza o tratamento EM NOME do controlador
+      (não decide, executa).
+
+  - id: lgpd-principios-10
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 13.709/2018 (LGPD), art. 6º, I a X"
+    front: "LGPD, art. 6º — os 10 princípios (liste ao menos 6)"
+    back: >
+      Finalidade, adequação, necessidade, livre acesso, qualidade dos
+      dados, transparência, segurança, prevenção, não discriminação,
+      responsabilização e prestação de contas.
+
+  - id: lgpd-bases-legais-exemplos
+    topic: modulo1/legislacao-si-pd
+    kind: cloze
+    pool: review
+    source: "Lei 13.709/2018 (LGPD), art. 7º"
+    front: "LGPD, art. 7º — cite 3 bases legais que autorizam o tratamento de dados pessoais além do consentimento"
+    back: >
+      Cumprimento de obrigação legal/regulatória pelo controlador (II);
+      execução de contrato ou procedimentos preliminares a ele relacionados
+      (V); proteção da vida ou da incolumidade física do titular ou de
+      terceiro (VII).
+
+  # --- Raciocínio Lógico -----------------------------------------------------
+
+  - id: logica-proposicoes-conectivos
+    topic: modulo1/raciocinio-logico
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Lógica proposicional — quais são os 5 principais conectivos lógicos?"
+    back: >
+      Negação (não, ¬), conjunção (e, ∧), disjunção (ou, ∨), condicional (se
+      ... então, →) e bicondicional (se e somente se, ↔).
+
+  - id: logica-tabela-verdade-e-ou
+    topic: modulo1/raciocinio-logico
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Tabela-verdade — quando 'p E q' é verdadeira? Quando 'p OU q' é verdadeira?"
+    back: >
+      "p E q" (conjunção) só é verdadeira quando AMBAS são verdadeiras. "p
+      OU q" (disjunção inclusiva) é verdadeira quando PELO MENOS UMA é
+      verdadeira — só é falsa quando as duas são falsas.
+
+  - id: logica-tabela-verdade-condicional
+    topic: modulo1/raciocinio-logico
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Tabela-verdade do condicional 'se p, então q' — em que único caso ele é falso?"
+    back: >
+      Só é falso quando p é VERDADEIRO e q é FALSO. Em todos os outros três
+      casos (incluindo p falso, independente de q), o condicional é
+      verdadeiro.
+    comment: >
+      É o ponto mais errado de raciocínio lógico em concurso — condicional
+      com antecedente falso é sempre verdadeiro ("vacuamente verdadeiro").
+
+  - id: logica-negacao-de-morgan
+    topic: modulo1/raciocinio-logico
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Leis de De Morgan — como negar 'p E q' e como negar 'p OU q'?"
+    back: >
+      Negação de "p E q" = "(não p) OU (não q)". Negação de "p OU q" =
+      "(não p) E (não q)" — a negação troca E por OU (e vice-versa) e nega
+      cada parte.
+
+  - id: logica-negacao-todo-algum
+    topic: modulo1/raciocinio-logico
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Como se nega 'Todo A é B' e como se nega 'Algum A é B'?"
+    back: >
+      Negação de "Todo A é B" = "Algum A não é B". Negação de "Algum A é B"
+      = "Nenhum A é B".
+
+  - id: logica-condicional-contrapositiva
+    topic: modulo1/raciocinio-logico
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "A proposição 'se p, então q' é logicamente equivalente a qual outra proposição (contrapositiva)?"
+    back: "'Se não q, então não p' (nega e inverte os dois termos) — tem exatamente o mesmo valor lógico do original."
+
+  # --- IA — fundamentos (não inclui "atualidades", que fica de fora) --------
+
+  - id: ia-conceito-geral
+    topic: modulo1/ia-fundamentos
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que é Inteligência Artificial, em definição ampla?"
+    back: >
+      Área da computação voltada a criar sistemas capazes de realizar
+      tarefas que, quando feitas por humanos, exigiriam inteligência —
+      como raciocínio, aprendizado, percepção e tomada de decisão.
+
+  - id: ia-machine-learning
+    topic: modulo1/ia-fundamentos
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que é aprendizado de máquina (machine learning), em contraste com programação tradicional?"
+    back: >
+      Em vez de programar regras explícitas, o sistema aprende padrões a
+      partir de dados de exemplo (treinamento) e generaliza esse
+      aprendizado para dados novos.
+
+  - id: ia-modelos-generativos-llm
+    topic: modulo1/ia-fundamentos
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que são modelos generativos e modelos de linguagem (LLMs), de forma geral?"
+    back: >
+      Modelos generativos: geram conteúdo novo (texto, imagem, áudio) a
+      partir de padrões aprendidos, em vez de só classificar ou prever um
+      rótulo. Modelos de linguagem (LLMs): modelos generativos treinados
+      para prever/gerar texto, com base em grandes volumes de dados
+      textuais.
+
+  - id: ia-etica-governanca
+    topic: modulo1/ia-fundamentos
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Ética e governança em IA — cite 3 preocupações centrais do tema"
+    back: >
+      Viés algorítmico (o modelo reproduz/amplifica preconceitos dos dados
+      de treino); transparência e explicabilidade (entender por que o
+      modelo decidiu algo); responsabilização (quem responde por uma
+      decisão automatizada errada) — além de privacidade dos dados usados
+      no treinamento.
+
+  # --- Português — só pegadinhas gramaticais isoladas ------------------------
+
+  - id: portugues-crase-regra-basica
+    topic: modulo1/portugues
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Crase — o que ela representa e quando ocorre, na regra mais básica?"
+    back: >
+      Fusão da preposição "a" com o artigo definido feminino "a"/"as" —
+      ocorre antes de palavra feminina que aceitaria o artigo "a" (ex.: "Fui
+      à escola" = fui a + a escola).
+
+  - id: portugues-crase-antes-verbo
+    topic: modulo1/portugues
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Por que NUNCA há crase antes de verbo?"
+    back: "Porque verbo não aceita artigo definido — sem artigo, não há o que se fundir com a preposição \"a\"."
+
+  - id: portugues-concordancia-sujeito-composto
+    topic: modulo1/portugues
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Concordância verbal — sujeito composto ANTES do verbo, regra geral"
+    back: "O verbo vai para o plural (ex.: \"O analista e o gestor participaram da reunião\")."
+
+  - id: portugues-proclise-obrigatoria
+    topic: modulo1/portugues
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Colocação pronominal — cite 3 casos em que a próclise (pronome antes do verbo) é obrigatória"
+    back: >
+      Depois de palavra negativa ("não me diga"); depois de pronome
+      relativo ("o processo que se analisa"); depois de conjunção
+      subordinativa ("quando se resolve o caso").
+
+  # --- Inglês — cobertura mínima, não substitui prática de leitura -----------
+
+  - id: ingles-false-friends-1
+    topic: modulo1/ingles
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "False friends comuns em prova — 'actually' e 'pretend' significam o quê (não o óbvio)?"
+    back: >
+      "Actually" = na verdade / de fato (não "atualmente" — isso é
+      "currently"). "Pretend" = fingir (não "pretender" — isso é "intend").
+
+  - id: ingles-false-friends-2
+    topic: modulo1/ingles
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "False friends comuns em prova — 'push', 'parents' e 'library' significam o quê (não o óbvio)?"
+    back: >
+      "Push" = empurrar (não "puxar" — isso é "pull"). "Parents" = pais
+      (não "parentes" — isso é "relatives"). "Library" = biblioteca (não
+      "livraria" — isso é "bookstore").

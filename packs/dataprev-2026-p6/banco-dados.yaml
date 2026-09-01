@@ -1,0 +1,306 @@
+# Módulo II, área "Banco de Dados" (edital Anexo I, Perfil 6).
+# Conhecimento técnico geral e estável (modelo relacional, SQL, ACID, NoSQL) —
+# mesmo tratamento de suporte-infra.yaml: 'source' identifica conhecimento
+# geral não conferido nesta sessão, sem depender de livro pago.
+
+topics:
+  - id: banco-dados
+    name: Banco de Dados
+    weight: 2.0
+    order: 3
+
+  - id: banco-dados/modelagem
+    name: Modelagem de Dados (Conceitual, Lógica, Física, Dimensional)
+    weight: 2.5
+    order: 1
+
+  - id: banco-dados/relacional-normalizacao
+    name: Abordagem Relacional, Normalização e Integridade Referencial
+    weight: 3.0
+    order: 2
+
+  - id: banco-dados/metadados
+    name: Metadados
+    weight: 1.0
+    order: 3
+
+  - id: banco-dados/sql-ddl-dml
+    name: SQL, DDL e DML
+    weight: 3.0
+    order: 4
+
+  - id: banco-dados/sgbd-propriedades
+    name: SGBD e Propriedades ACID
+    weight: 2.0
+    order: 5
+
+  - id: banco-dados/nosql
+    name: Banco de Dados NoSQL
+    weight: 2.5
+    order: 6
+
+  - id: banco-dados/em-memoria
+    name: Banco de Dados em Memória
+    weight: 1.5
+    order: 7
+
+  - id: banco-dados/data-lake-bigdata
+    name: Data Lakes e Big Data
+    weight: 2.0
+    order: 8
+
+items:
+
+  # --- Modelagem de dados ------------------------------------------------------
+
+  - id: bd-modelo-conceitual-logico-fisico
+    topic: banco-dados/modelagem
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Modelagem de dados — diferença entre modelo conceitual, lógico e físico, e a ordem em que são feitos"
+    back: >
+      Conceitual: entidades e relacionamentos, independente de tecnologia
+      (ex.: MER). Lógico: já em formato de tabelas/colunas, ainda
+      independente de SGBD específico. Físico: implementação real num SGBD
+      (tipos de dado, índices, particionamento). Ordem: conceitual → lógico
+      → físico.
+
+  - id: bd-modelagem-dimensional-fato-dimensao
+    topic: banco-dados/modelagem
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Modelagem dimensional — o que é uma tabela fato e o que é uma tabela dimensão?"
+    back: >
+      Fato: guarda as medidas/métricas numéricas do processo de negócio
+      (ex.: valor da venda) e chaves para as dimensões. Dimensão: guarda os
+      atributos descritivos usados para filtrar e agrupar o fato (ex.:
+      cliente, produto, tempo).
+
+  - id: bd-esquema-estrela-floco-neve
+    topic: banco-dados/modelagem
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Esquema estrela (star schema) vs floco de neve (snowflake) — diferença"
+    back: >
+      Estrela: dimensões desnormalizadas, cada uma em uma única tabela
+      ligada direto ao fato — mais simples e rápido de consultar. Floco de
+      neve: dimensões normalizadas em sub-tabelas relacionadas — economiza
+      espaço, mas exige mais joins.
+
+  # --- Relacional e normalização ------------------------------------------------
+
+  - id: bd-abordagem-relacional
+    topic: banco-dados/relacional-normalizacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que caracteriza a abordagem relacional de banco de dados?"
+    back: >
+      Dados organizados em tabelas (relações), com linhas (tuplas) e colunas
+      (atributos), relacionadas entre si por chaves — base teórica na
+      álgebra relacional.
+
+  - id: bd-1fn
+    topic: banco-dados/relacional-normalizacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "1ª Forma Normal (1FN) — o que exige?"
+    back: "Que todos os atributos tenham valores atômicos (indivisíveis) — sem grupos repetitivos ou valores multivalorados em uma célula."
+
+  - id: bd-2fn
+    topic: banco-dados/relacional-normalizacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "2ª Forma Normal (2FN) — o que exige, além de estar em 1FN?"
+    back: >
+      Que todo atributo não-chave dependa da CHAVE PRIMÁRIA INTEIRA, não de
+      apenas parte dela (elimina dependência funcional parcial) — só é
+      relevante quando a chave é composta.
+
+  - id: bd-3fn
+    topic: banco-dados/relacional-normalizacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "3ª Forma Normal (3FN) — o que exige, além de estar em 2FN?"
+    back: >
+      Que nenhum atributo não-chave dependa de outro atributo não-chave
+      (elimina dependência transitiva) — todo atributo deve depender
+      diretamente só da chave.
+
+  - id: bd-integridade-referencial
+    topic: banco-dados/relacional-normalizacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que é integridade referencial?"
+    back: >
+      Regra que garante que toda chave estrangeira aponte para um valor de
+      chave primária existente na tabela referenciada (ou seja nula) —
+      impede referências "órfãs".
+
+  - id: bd-chave-primaria-estrangeira-candidata
+    topic: banco-dados/relacional-normalizacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Diferença entre chave primária, chave candidata e chave estrangeira"
+    back: >
+      Chave candidata: qualquer conjunto de atributos que poderia
+      identificar unicamente a linha. Chave primária: a chave candidata
+      escolhida para identificar a tabela. Chave estrangeira: atributo(s)
+      que referenciam a chave primária de outra tabela.
+
+  # --- Metadados ------------------------------------------------------------
+
+  - id: bd-metadados-conceito
+    topic: banco-dados/metadados
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que são metadados, em banco de dados?"
+    back: >
+      "Dados sobre dados" — informações que descrevem a estrutura, origem,
+      formato ou significado dos dados (ex.: nome e tipo de uma coluna,
+      quando um registro foi criado, de onde veio).
+
+  # --- SQL, DDL, DML ---------------------------------------------------------
+
+  - id: bd-ddl-conceito
+    topic: banco-dados/sql-ddl-dml
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "DDL (Data Definition Language) — o que faz e quais os comandos principais?"
+    back: >
+      Define e altera a ESTRUTURA do banco (tabelas, índices, esquemas).
+      Comandos principais: CREATE, ALTER, DROP.
+
+  - id: bd-dml-conceito
+    topic: banco-dados/sql-ddl-dml
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "DML (Data Manipulation Language) — o que faz e quais os comandos principais?"
+    back: >
+      Manipula os DADOS armazenados nas tabelas (sem alterar a estrutura).
+      Comandos principais: SELECT, INSERT, UPDATE, DELETE.
+
+  - id: bd-join-tipos
+    topic: banco-dados/sql-ddl-dml
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "SQL — diferença entre INNER JOIN, LEFT JOIN e FULL (OUTER) JOIN"
+    back: >
+      INNER JOIN: só linhas com correspondência nas duas tabelas. LEFT
+      JOIN: todas as linhas da tabela à esquerda, com NULL onde não há
+      correspondência à direita. FULL (OUTER) JOIN: todas as linhas de
+      ambas, com NULL onde não há correspondência.
+
+  # --- SGBD e ACID -----------------------------------------------------------
+
+  - id: bd-sgbd-conceito
+    topic: banco-dados/sgbd-propriedades
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que é um SGBD (Sistema Gerenciador de Banco de Dados)?"
+    back: >
+      Software que fica entre a aplicação e os dados armazenados, oferecendo
+      criação, consulta, atualização, controle de acesso, integridade e
+      recuperação de dados — sem que a aplicação precise manipular os
+      arquivos diretamente.
+
+  - id: bd-acid
+    topic: banco-dados/sgbd-propriedades
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Propriedades ACID de uma transação — o que significa cada letra?"
+    back: >
+      Atomicidade (tudo ou nada), Consistência (transação leva o banco de um
+      estado válido a outro), Isolamento (transações concorrentes não
+      interferem entre si), Durabilidade (uma vez confirmada, a mudança
+      persiste mesmo com falha do sistema).
+
+  # --- NoSQL -------------------------------------------------------------------
+
+  - id: bd-nosql-motivacao
+    topic: banco-dados/nosql
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Por que bancos NoSQL surgiram como alternativa ao relacional?"
+    back: >
+      Para escalar horizontalmente com mais facilidade e lidar com dados sem
+      esquema rígido ou de alto volume/velocidade, trocando parte das
+      garantias relacionais (schema fixo, joins, ACID completo) por
+      flexibilidade e desempenho em escala distribuída.
+
+  - id: bd-nosql-tipos
+    topic: banco-dados/nosql
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Quais os 4 tipos principais de banco NoSQL, com um exemplo de cada?"
+    back: >
+      Chave-valor (Redis); documento (MongoDB); colunar/wide-column
+      (Cassandra); grafo (Neo4j).
+
+  - id: bd-teorema-cap
+    topic: banco-dados/nosql
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Teorema CAP — o que ele afirma?"
+    back: >
+      Um sistema distribuído só pode garantir, ao mesmo tempo, 2 das 3
+      propriedades: Consistência (Consistency), Disponibilidade
+      (Availability) e Tolerância a Partição (Partition tolerance) — na
+      prática, tolerância a partição é obrigatória em sistema distribuído,
+      então a escolha real é entre consistência e disponibilidade.
+
+  # --- Banco em memória -----------------------------------------------------
+
+  - id: bd-em-memoria-conceito
+    topic: banco-dados/em-memoria
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Banco de dados em memória — por que é rápido, e qual o principal trade-off?"
+    back: >
+      Mantém os dados primariamente na RAM em vez de disco, eliminando a
+      latência de I/O de disco. Trade-off: risco de perda de dados em queda
+      de energia/falha, a menos que haja persistência complementar em disco
+      (ex.: Redis com AOF/RDB, SAP HANA).
+
+  # --- Data lake e Big Data ---------------------------------------------------
+
+  - id: bd-data-lake-vs-warehouse
+    topic: banco-dados/data-lake-bigdata
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Data lake vs data warehouse — diferença principal"
+    back: >
+      Data lake: guarda dados BRUTOS, em qualquer formato (estruturado,
+      semiestruturado, não estruturado), schema-on-read (aplica estrutura só
+      na leitura). Data warehouse: guarda dados já ESTRUTURADOS e
+      modelados, schema-on-write (estrutura definida antes de carregar).
+
+  - id: bd-big-data-vs
+    topic: banco-dados/data-lake-bigdata
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Big Data — quais são os 3 'V's clássicos (e 2 estendidos, se lembrar)?"
+    back: >
+      Clássicos: Volume, Velocidade, Variedade. Estendidos, comuns em provas:
+      Veracidade (qualidade/confiabilidade do dado) e Valor (utilidade
+      extraída do dado).

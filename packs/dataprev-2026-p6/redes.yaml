@@ -1,0 +1,322 @@
+# Módulo II, área "Redes de Computadores" (edital Anexo I, Perfil 6).
+# Conhecimento técnico geral e estável (OSI, TCP/IP, protocolos) — mesmo
+# tratamento de suporte-infra.yaml e banco-dados.yaml.
+
+topics:
+  - id: redes
+    name: Redes de Computadores
+    weight: 2.5
+    order: 4
+
+  - id: redes/conceitos-basicos
+    name: Conceitos Básicos (meios, classificação, topologia)
+    weight: 2.0
+    order: 1
+
+  - id: redes/interconexao
+    name: Interconexão (hubs, switches, roteadores, VLAN, cabeamento)
+    weight: 2.5
+    order: 2
+
+  - id: redes/modelo-osi
+    name: Modelo de Referência OSI
+    weight: 3.0
+    order: 3
+
+  - id: redes/padroes-ieee
+    name: Padrões IEEE 802.1, 802.3, 802.11
+    weight: 2.0
+    order: 4
+
+  - id: redes/tcp-ip-camada-rede
+    name: TCP/IP — Camada de Rede (IPv4, IPv6, IPsec)
+    weight: 2.5
+    order: 5
+
+  - id: redes/tcp-ip-camada-transporte
+    name: TCP/IP — Camada de Transporte (TCP, UDP)
+    weight: 2.5
+    order: 6
+
+  - id: redes/tcp-ip-camada-aplicacao
+    name: TCP/IP — Camada de Aplicação (FTP, SSH, DNS, SMTP, POP, IMAP, HTTP, HTTPS, RDP, DHCP)
+    weight: 3.0
+    order: 7
+
+items:
+
+  # --- Conceitos básicos --------------------------------------------------
+
+  - id: redes-meios-transmissao
+    topic: redes/conceitos-basicos
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Meios de transmissão guiados vs não guiados — o que são e um exemplo de cada"
+    back: >
+      Guiados: o sinal viaja confinado a um meio físico (cabo par trançado,
+      cabo coaxial, fibra óptica). Não guiados: o sinal se propaga pelo ar
+      ou espaço (rádio, micro-ondas, satélite, infravermelho).
+
+  - id: redes-classificacao-abrangencia
+    topic: redes/conceitos-basicos
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Classificação de redes por abrangência geográfica — PAN, LAN, MAN, WAN"
+    back: >
+      PAN: rede pessoal, poucos metros (Bluetooth). LAN: rede local, um
+      prédio/campus. MAN: rede metropolitana, uma cidade. WAN: rede de longa
+      distância, cobre regiões/países (ex.: a própria Internet).
+
+  - id: redes-topologias
+    topic: redes/conceitos-basicos
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Topologias de rede — estrela, barramento, anel e malha (mesh): característica de cada"
+    back: >
+      Estrela: todos os nós ligados a um ponto central (hub/switch) — falha
+      central derruba tudo. Barramento: todos os nós compartilham um único
+      cabo. Anel: cada nó conecta ao próximo, formando um círculo. Malha:
+      cada nó conecta a vários outros, redundância alta.
+
+  # --- Interconexão --------------------------------------------------------
+
+  - id: redes-hub-vs-switch
+    topic: redes/interconexao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Hub vs switch — diferença de camada e de comportamento"
+    back: >
+      Hub: camada 1 (física), repete o sinal para TODAS as portas
+      (broadcast), sem inteligência. Switch: camada 2 (enlace), aprende
+      endereços MAC e envia o quadro só para a porta de destino correta.
+
+  - id: redes-switch-vs-roteador
+    topic: redes/interconexao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Switch vs roteador — diferença de camada e de função"
+    back: >
+      Switch: camada 2, encaminha dentro da MESMA rede local, usando
+      endereço MAC. Roteador: camada 3, encaminha ENTRE redes diferentes,
+      usando endereço IP e tabela de rotas.
+
+  - id: redes-vlan
+    topic: redes/interconexao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que é uma VLAN e para que serve?"
+    back: >
+      Segmentação lógica de uma rede local em sub-redes independentes dentro
+      do mesmo switch físico — isola tráfego e domínios de broadcast sem
+      precisar de switches físicos separados.
+
+  - id: redes-cabeamento-estruturado
+    topic: redes/interconexao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que é cabeamento estruturado?"
+    back: >
+      Sistema padronizado e hierárquico de cabeamento de rede em um prédio
+      (backbone, distribuição horizontal, área de trabalho), projetado para
+      ser independente de aplicação/fabricante e fácil de gerenciar e
+      expandir.
+
+  # --- Modelo OSI ------------------------------------------------------------
+
+  - id: redes-osi-7-camadas
+    topic: redes/modelo-osi
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Modelo OSI — quais são as 7 camadas, de baixo (1) para cima (7)?"
+    back: >
+      1 Física, 2 Enlace (Data Link), 3 Rede (Network), 4 Transporte, 5
+      Sessão, 6 Apresentação, 7 Aplicação.
+
+  - id: redes-osi-camadas-1-4
+    topic: redes/modelo-osi
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "OSI — o que cada camada de 1 a 4 é responsável por fazer, resumidamente?"
+    back: >
+      1 Física: bits no meio físico. 2 Enlace: quadros e endereço MAC dentro
+      do mesmo segmento. 3 Rede: endereçamento IP e roteamento entre redes.
+      4 Transporte: entrega fim a fim (TCP/UDP), controle de fluxo e erro.
+
+  - id: redes-osi-camadas-5-7
+    topic: redes/modelo-osi
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "OSI — o que cada camada de 5 a 7 é responsável por fazer, resumidamente?"
+    back: >
+      5 Sessão: estabelece, gerencia e encerra sessões de comunicação. 6
+      Apresentação: tradução, criptografia e compressão de dados. 7
+      Aplicação: interface com o usuário/aplicação (HTTP, FTP, DNS etc.).
+
+  - id: redes-osi-vs-tcpip-camadas
+    topic: redes/modelo-osi
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Modelo OSI (7 camadas) vs modelo TCP/IP (4 camadas) — como se mapeiam, resumidamente?"
+    back: >
+      TCP/IP tem 4 camadas: Acesso à Rede (= OSI 1+2), Internet (= OSI 3),
+      Transporte (= OSI 4), Aplicação (= OSI 5+6+7 combinadas em uma só).
+    comment: >
+      Distrator comum: perguntar quantas camadas tem o TCP/IP (4) e
+      confundir com as 7 do OSI.
+
+  # --- Padrões IEEE ------------------------------------------------------------
+
+  - id: redes-ieee-8023-ethernet
+    topic: redes/padroes-ieee
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "IEEE 802.3 — a qual tecnologia de rede corresponde?"
+    back: "Ethernet — rede local cabeada."
+
+  - id: redes-ieee-80211-wifi
+    topic: redes/padroes-ieee
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "IEEE 802.11 — a qual tecnologia corresponde, e o que diferencia as variantes a/b/g/n/ac entre si?"
+    back: >
+      Wi-Fi (rede local sem fio). As variantes diferem principalmente em
+      frequência (2,4 GHz ou 5 GHz) e velocidade máxima teórica — evolução
+      cronológica: b/g (2,4 GHz, mais lentas) → a (5 GHz) → n (ambas
+      frequências, MIMO) → ac (5 GHz, mais rápida, múltiplas antenas).
+
+  - id: redes-ieee-8021
+    topic: redes/padroes-ieee
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "IEEE 802.1 — de forma geral, sobre o que trata esse grupo de padrões?"
+    back: >
+      Padrões de nível de arquitetura de rede e gerenciamento — inclui, por
+      exemplo, 802.1Q (marcação de VLAN) e 802.1X (controle de acesso à
+      rede baseado em porta).
+
+  # --- TCP/IP — camada de rede -------------------------------------------
+
+  - id: redes-ipv4-vs-ipv6
+    topic: redes/tcp-ip-camada-rede
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "IPv4 vs IPv6 — diferença de tamanho de endereço e motivação da criação do IPv6"
+    back: >
+      IPv4: endereço de 32 bits (~4,3 bilhões de endereços, já esgotados).
+      IPv6: endereço de 128 bits, criado justamente para resolver o
+      esgotamento de endereços do IPv4.
+
+  - id: redes-ipsec
+    topic: redes/tcp-ip-camada-rede
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que é o IPsec e em que camada opera?"
+    back: >
+      Conjunto de protocolos que autentica e criptografa pacotes IP,
+      operando na camada de rede (3) — base comum de VPNs site-to-site.
+
+  - id: redes-roteamento-conceito
+    topic: redes/tcp-ip-camada-rede
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que é roteamento, e o que uma tabela de rotas guarda?"
+    back: >
+      Processo de decidir o próximo salto para encaminhar um pacote até seu
+      destino, atravessando redes diferentes. A tabela de rotas guarda,
+      para cada rede de destino (ou padrão), qual interface/próximo salto
+      usar.
+
+  # --- TCP/IP — camada de transporte --------------------------------------
+
+  - id: redes-tcp-vs-udp
+    topic: redes/tcp-ip-camada-transporte
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "TCP vs UDP — diferença fundamental"
+    back: >
+      TCP: orientado a conexão, confiável (confirma entrega, reordena,
+      retransmite), mais lento. UDP: sem conexão, não confiável (não
+      confirma nem reordena), mais rápido e leve — usado quando velocidade
+      importa mais que garantia (ex.: streaming, DNS, VoIP).
+
+  # --- TCP/IP — camada de aplicação ----------------------------------------
+
+  - id: redes-portas-padrao-1
+    topic: redes/tcp-ip-camada-aplicacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Portas padrão — HTTP, HTTPS, SSH, DNS, RDP"
+    back: >
+      HTTP: 80. HTTPS: 443. SSH: 22. DNS: 53. RDP: 3389.
+
+  - id: redes-portas-padrao-2
+    topic: redes/tcp-ip-camada-aplicacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Portas padrão — FTP (dados e controle), SMTP, POP3, IMAP"
+    back: >
+      FTP: 20 (dados) e 21 (controle). SMTP: 25. POP3: 110. IMAP: 143.
+
+  - id: redes-dns-funcao
+    topic: redes/tcp-ip-camada-aplicacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que o DNS faz?"
+    back: >
+      Traduz nomes de domínio legíveis (ex.: dataprev.gov.br) para endereços
+      IP correspondentes — é o "sistema de nomes" da Internet.
+
+  - id: redes-dhcp-funcao
+    topic: redes/tcp-ip-camada-aplicacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que o DHCP faz?"
+    back: >
+      Atribui automaticamente endereço IP (e outras configurações de rede,
+      como gateway e DNS) a um dispositivo quando ele entra na rede, sem
+      precisar de configuração manual.
+
+  - id: redes-ssl-tls-funcao
+    topic: redes/tcp-ip-camada-aplicacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que SSL/TLS garante numa comunicação (ex.: HTTPS)?"
+    back: >
+      Criptografia do tráfego entre cliente e servidor, além de autenticação
+      do servidor (via certificado digital) e integridade dos dados
+      transmitidos.
+
+  - id: redes-pop-vs-imap
+    topic: redes/tcp-ip-camada-aplicacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "POP3 vs IMAP — diferença de comportamento com as mensagens de e-mail"
+    back: >
+      POP3: baixa as mensagens para o dispositivo local e normalmente as
+      remove do servidor — cada dispositivo tem sua própria cópia. IMAP:
+      mantém as mensagens sincronizadas no servidor — o mesmo estado
+      (lido/não lido, pastas) aparece em qualquer dispositivo.

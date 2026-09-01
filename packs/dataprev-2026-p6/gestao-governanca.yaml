@@ -1,0 +1,589 @@
+# Módulo II, área "Gestão e Governança de TI" (edital Anexo I, Perfil 6).
+# O 'id' do tópico É o path. O pai é derivado por split — não existe campo
+# 'parent' aqui (1.3).
+#
+# 'weight' nesta área é estimativa nossa, não frequência histórica FGV — o
+# edital não publica quantas das 30 questões do Módulo II vão para cada área
+# (registrado em manifest.yaml, revisão de 2.4 em 2026-09-01).
+#
+# Fonte por tópico (combinado em 2026-09-01):
+#   - lei-13303 e in-sgd: texto oficial, buscado e citado por artigo (1.2).
+#   - itil / cobit / pmbok / iso: material pago, sem fonte primária livre.
+#     Gerado por fonte secundária, marcado em 'source', sujeito a auditoria
+#     do usuário no primeiro lote antes de eu continuar em volume.
+
+topics:
+  - id: gestao-governanca
+    name: Gestão e Governança de TI
+    weight: 3.0
+    order: 1
+
+  - id: gestao-governanca/itil
+    name: ITIL v4
+    weight: 3.0
+    order: 1
+
+  - id: gestao-governanca/itil/conceitos
+    name: Conceitos-chave e SVS
+    weight: 3.0
+    order: 1
+    unlocks: [gestao-governanca/itil/praticas]
+
+  - id: gestao-governanca/itil/principios
+    name: Princípios Orientadores
+    weight: 2.5
+    order: 2
+
+  - id: gestao-governanca/itil/praticas
+    name: Práticas de Gerenciamento
+    weight: 3.0
+    order: 3
+
+  - id: gestao-governanca/cobit
+    name: COBIT 2019
+    weight: 3.0
+    order: 2
+    # Primeiro lote em 2026-09-01 — fonte secundária (ISACA + busca), auditar.
+
+  - id: gestao-governanca/pmbok
+    name: PMBOK 7ª edição
+    weight: 3.0
+    order: 3
+    # Primeiro lote em 2026-09-01 — fonte secundária, auditar. Um item
+    # (domínios de desempenho) não foi verificado externamente nesta sessão —
+    # ver comment do item pmbok7-dominios-desempenho antes de confiar nele.
+
+  - id: gestao-governanca/processos-indicadores
+    name: BPMN, Kanban e Gestão de Indicadores
+    weight: 1.5
+    order: 4
+    # Sem itens ainda.
+
+  - id: gestao-governanca/lei-13303
+    name: Lei 13.303/2016 (Lei das Estatais)
+    weight: 3.0
+    order: 5
+
+  - id: gestao-governanca/in-sgd
+    name: Instruções Normativas SGD (contratação de TIC)
+    weight: 2.5
+    order: 6
+
+  - id: gestao-governanca/iso-20000-19770
+    name: ISO 20.000 e ISO 19.770
+    weight: 1.5
+    order: 7
+    # Sem itens ainda — fonte secundária.
+
+# 'source' é obrigatório em todo item (1.5): sem ele você não audita um card
+# suspeito seis semanas depois — e você vai encontrar cards suspeitos.
+items:
+
+  # --- ITIL v4 (migrado de itil.yaml — mesmo external_id, não reseta FSRS) --
+
+  - id: itil-svs-definicao
+    topic: gestao-governanca/itil/conceitos
+    kind: cloze
+    pool: review
+    source: "ITIL 4 Foundation, cap. 4.1 (fonte secundária — auditar)"
+    front: "ITIL v4 — o que é o Sistema de Valor de Serviço (SVS)?"
+    back: >
+      Modelo que descreve como todos os componentes e atividades da organização
+      trabalham juntos para facilitar a criação de valor. Componentes:
+      princípios orientadores, governança, cadeia de valor de serviço, práticas,
+      melhoria contínua.
+
+  - id: itil-principios-lista
+    topic: gestao-governanca/itil/principios
+    kind: cloze
+    pool: review
+    source: "ITIL 4 Foundation, cap. 4.3 (fonte secundária — auditar)"
+    front: "ITIL v4 — os 7 princípios orientadores"
+    back: >
+      Focar no valor; começar onde você está; progredir iterativamente com
+      feedback; colaborar e promover visibilidade; pensar e trabalhar
+      holisticamente; manter simples e prático; otimizar e automatizar.
+
+  - id: itil-incidente-objetivo
+    topic: gestao-governanca/itil/praticas
+    kind: cloze
+    pool: review
+    source: "ITIL 4 Foundation, cap. 5.2.5 (fonte secundária — auditar)"
+    front: "ITIL v4 — objetivo da prática Gerenciamento de Incidentes"
+    back: >
+      Minimizar o impacto negativo de incidentes restaurando a operação normal
+      do serviço o mais rápido possível.
+    comment: >
+      A FGV gosta de trocar este objetivo pelo de Gerenciamento de Problemas
+      (achar causa raiz). Discriminar os dois é o que a questão cobra.
+
+  - id: fgv-dataprev-2023-q42
+    topic: gestao-governanca/itil/praticas
+    kind: mcq
+    pool: exam
+    source: "FGV / Dataprev 2023, Analista, Q42"
+    stem: >
+      (Cole aqui o enunciado literal da questão da prova.)
+    choices:
+      - "Alternativa A"
+      - "Alternativa B"
+      - "Alternativa C"
+      - "Alternativa D"
+      - "Alternativa E"
+    answer: 2
+    comment: >
+      Gabarito comentado. Ao importar uma questão de prova, extraia o CONCEITO
+      dela como um cloze separado no pool de revisão — a questão original nunca
+      entra na rotação de repetição (2.5).
+
+  # --- Lei 13.303/2016 — texto oficial via camara.leg.br, 2026-09-01 --------
+
+  - id: lei13303-objeto
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 1º"
+    front: "Lei 13.303/2016 — o que ela disciplina (art. 1º)?"
+    back: >
+      O estatuto jurídico da empresa pública, da sociedade de economia mista e
+      de suas subsidiárias, abrangendo toda empresa pública e sociedade de
+      economia mista da União, dos Estados, do DF e dos Municípios que explore
+      atividade econômica de produção ou comercialização de bens ou de
+      prestação de serviços.
+
+  - id: lei13303-conselho-administracao-membros
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 13"
+    front: "Lei 13.303/2016 — número mínimo e máximo de membros do Conselho de Administração (art. 13)"
+    back: "Mínimo de 7 (sete) e máximo de 11 (onze) membros."
+
+  - id: lei13303-diretores-minimo
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 13"
+    front: "Lei 13.303/2016 — número mínimo de diretores exigido pela lei autorizadora (art. 13)"
+    back: "Mínimo de 3 (três) diretores."
+
+  - id: lei13303-mandato-conselho
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 13"
+    front: "Lei 13.303/2016 — prazo máximo de gestão e número de reconduções do Conselho de Administração (art. 13)"
+    back: "Prazo máximo de gestão de 2 (dois) anos, admitidas até 3 (três) reconduções consecutivas."
+    comment: >
+      Pegadinha clássica: a FGV troca "reconduções consecutivas" por "no total"
+      ou muda o número. Atenção ao "consecutivas".
+
+  - id: lei13303-requisitos-administradores
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 17"
+    front: "Lei 13.303/2016 — requisitos gerais para membros do Conselho de Administração e diretoria (art. 17)"
+    back: >
+      Ser cidadão de reputação ilibada e de notório conhecimento, com
+      experiência profissional específica e formação acadêmica compatível com
+      o cargo, e não se enquadrar nas hipóteses de inelegibilidade previstas
+      em lei.
+
+  - id: lei13303-conselho-independentes
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 22"
+    front: "Lei 13.303/2016 — percentual mínimo de membros independentes no Conselho de Administração (art. 22)"
+    back: "No mínimo 25% (vinte e cinco por cento) de membros independentes."
+
+  - id: lei13303-comite-auditoria-estatutario
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, arts. 24-25"
+    front: "Lei 13.303/2016 — composição do Comitê de Auditoria Estatutário (arts. 24-25)"
+    back: >
+      De 3 (três) a 5 (cinco) membros, com maioria de membros independentes,
+      responsável pela supervisão dos auditores e monitoramento de riscos.
+
+  - id: lei13303-conselho-fiscal
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 26"
+    front: "Lei 13.303/2016 — regra do Conselho Fiscal quanto a servidor público (art. 26)"
+    back: >
+      O Conselho Fiscal segue a Lei nº 6.404/1976, com pelo menos 1 (um)
+      membro servidor público indicado pelo ente controlador.
+
+  - id: lei13303-partes-relacionadas
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 8º, VII"
+    front: "Lei 13.303/2016 — o que o art. 8º, VII exige em relação a partes relacionadas?"
+    back: >
+      Elaboração e divulgação de política de transações com partes
+      relacionadas, em conformidade com os requisitos de competitividade,
+      conformidade, transparência, equidade e comutatividade.
+
+  - id: lei13303-licitacao-obrigatoria
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 28"
+    front: "Lei 13.303/2016 — regra geral sobre contratos com terceiros para prestação de serviços às estatais (art. 28)"
+    back: >
+      Serão precedidos de licitação nos termos da lei, ressalvadas as
+      hipóteses previstas nos arts. 29 e 30 (dispensa e inexigibilidade).
+
+  - id: lei13303-licitacao-principios
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 31"
+    front: "Lei 13.303/2016 — objetivo e princípios da licitação nas estatais (art. 31)"
+    back: >
+      Assegurar a seleção da proposta mais vantajosa, inclusive no que se
+      refere ao ciclo de vida do objeto, e evitar operações com sobrepreço ou
+      superfaturamento, observando impessoalidade, moralidade, igualdade,
+      publicidade e eficiência.
+
+  - id: lei13303-art8-lista-praticas
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 8º, I a IX"
+    front: "Lei 13.303/2016, art. 8º — quantos incisos de práticas de governança/transparência ele lista, e cite 4 deles"
+    back: >
+      9 incisos (I a IX). Exemplos: carta anual do Conselho de Administração
+      (I); política de distribuição de dividendos (V); política de
+      transações com partes relacionadas (VII); carta anual de governança
+      corporativa de ampla divulgação (VIII).
+    comment: >
+      O item lei13303-partes-relacionadas cobre o inciso VII isoladamente —
+      este card é para memorizar que existem OUTROS incisos além dele.
+
+  - id: lei13303-dispensa-vs-inexigibilidade
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, arts. 29 e 30"
+    front: "Lei 13.303/2016 — diferença conceitual entre dispensa (art. 29) e inexigibilidade (art. 30) de licitação"
+    back: >
+      Dispensa: a competição é possível, mas a lei autoriza não licitar por
+      valor baixo, situação específica ou política pública (rol taxativo do
+      art. 29). Inexigibilidade: a competição é inviável, normalmente por
+      fornecedor exclusivo ou notória especialização (art. 30) — não é uma
+      escolha, é uma impossibilidade fática.
+
+  - id: lei13303-dispensa-valores
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 29, I e II (texto original de 2016)"
+    front: "Lei 13.303/2016, art. 29, I e II — valores-base de dispensa por obras/serviços de engenharia e por outros serviços/compras"
+    back: >
+      Até R$ 100.000,00 para obras e serviços de engenharia (inciso I); até
+      R$ 50.000,00 para outros serviços e compras (inciso II).
+    comment: >
+      Estes são os valores do texto original de 2016 — não confirmei se
+      sofreram correção monetária desde então. Ver o próximo card: quem
+      atualiza esses valores NÃO é decreto do Executivo, é o Conselho de
+      Administração de cada empresa. Confirme o valor vigente na Dataprev
+      antes de fixar o número como fato de prova.
+
+  - id: lei13303-dispensa-atualizacao-valores
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 29, § (busca — confirmar número exato do parágrafo)"
+    front: "Lei 13.303/2016 — quem tem competência para atualizar os valores de dispensa do art. 29, I e II?"
+    back: >
+      O Conselho de Administração da própria empresa pública ou sociedade de
+      economia mista, por deliberação — não um decreto do Poder Executivo.
+      Admite-se valor diferente para cada estatal.
+    comment: >
+      Distrator forte: quem só conhece a Lei 14.133/2021 (que usa decreto
+      centralizado) tende a errar essa por analogia. Nas estatais é
+      descentralizado, por empresa.
+
+  - id: lei13303-dispensa-nao-acudirem-interessados
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 29, III"
+    front: "Lei 13.303/2016, art. 29, III — hipótese de dispensa quando..."
+    back: "Não acudirem interessados à licitação anterior (licitação deserta)."
+
+  - id: lei13303-dispensa-emergencia
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 29, XV"
+    front: "Lei 13.303/2016, art. 29, XV — hipótese de dispensa por..."
+    back: "Situações de emergência, quando caracterizada urgência de atendimento."
+
+  - id: lei13303-dispensa-entre-estatais
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 29, XI"
+    front: "Lei 13.303/2016, art. 29, XI — dispensa nas contratações entre..."
+    back: "Empresas públicas ou sociedades de economia mista, entre si."
+
+  - id: lei13303-inexigibilidade-fornecedor-exclusivo
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 30, I"
+    front: "Lei 13.303/2016, art. 30, I — hipótese de inexigibilidade por..."
+    back: >
+      Aquisição de materiais, equipamentos ou gêneros que só possam ser
+      fornecidos por produtor, empresa ou representante comercial exclusivo.
+
+  - id: lei13303-inexigibilidade-notoria-especializacao
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 30, II"
+    front: "Lei 13.303/2016, art. 30, II — hipótese de inexigibilidade por..."
+    back: >
+      Contratação de serviços técnicos especializados, com profissionais ou
+      empresas de notória especialização.
+
+  - id: lei13303-pregao-preferencial
+    topic: gestao-governanca/lei-13303
+    kind: cloze
+    pool: review
+    source: "Lei 13.303/2016, art. 32, IV"
+    front: "Lei 13.303/2016, art. 32, IV — qual modalidade de licitação a lei adota preferencialmente?"
+    back: "Pregão."
+
+  # --- Instruções Normativas SGD — contratação de TIC no SISP --------------
+
+  - id: in-sgd-lei-base-comparativo
+    topic: gestao-governanca/in-sgd
+    kind: cloze
+    pool: review
+    source: "IN SGD/ME 1/2019 art. 1º; IN SGD/ME 94/2022 art. 1º"
+    front: "Sob qual lei de licitações cada IN de contratação de TIC do SISP foi editada — IN SGD/ME 1/2019 e IN SGD/ME 94/2022?"
+    back: >
+      IN 1/2019 é regida pela Lei nº 8.666/1993 (lei antiga). IN 94/2022 é
+      regida pela Lei nº 14.133/2021 (Nova Lei de Licitações).
+    comment: >
+      Distrator clássico: a FGV troca a lei-base de uma IN pela da outra.
+
+  - id: in-sgd-tres-fases
+    topic: gestao-governanca/in-sgd
+    kind: cloze
+    pool: review
+    source: "IN SGD/ME 1/2019 art. 8º; IN SGD/ME 94/2022 art. 9º"
+    front: "IN SGD de contratação de TIC — quais são as 3 fases do processo de contratação?"
+    back: "Planejamento da Contratação; Seleção do Fornecedor; Gestão do Contrato."
+
+  - id: in-sgd-etapas-planejamento
+    topic: gestao-governanca/in-sgd
+    kind: cloze
+    pool: review
+    source: "IN SGD/ME 94/2022, arts. 10-12"
+    front: "IN SGD 94/2022 — as 3 etapas obrigatórias da fase de Planejamento da Contratação (arts. 10-12)"
+    back: >
+      Instituição da Equipe de Planejamento da Contratação; elaboração do
+      Estudo Técnico Preliminar (ETP); elaboração do Termo de Referência (TR).
+
+  - id: in-sgd-94-pmc-tic
+    topic: gestao-governanca/in-sgd
+    kind: cloze
+    pool: review
+    source: "IN SGD/ME 94/2022, art. 2º, XXVII e art. 27, parágrafo único"
+    front: "IN SGD 94/2022 — o que é o PMC-TIC e o que ele veda?"
+    back: >
+      Catálogo de Soluções com Preço Máximo de TIC. Veda a contratação por
+      preço superior ao valor máximo nele estabelecido para a solução
+      catalogada.
+
+  - id: in-sgd-6-2023-limite
+    topic: gestao-governanca/in-sgd
+    kind: cloze
+    pool: review
+    source: "IN SGD/MGI 6/2023"
+    front: "IN SGD/MGI 6/2023 — a partir de qual valor global estimado a contratação de TIC do SISP precisa de aprovação prévia da Secretaria de Governo Digital?"
+    back: "Valor global estimado igual ou superior a R$ 20.000.000,00 (vinte milhões de reais)."
+
+  # --- COBIT 2019 — primeiro lote, fonte secundária (ISACA + busca) --------
+  # Auditar antes de confiar de olhos fechados: eu não tenho o texto pago do
+  # framework, só material público que descreve o framework.
+
+  - id: cobit2019-objetivo
+    topic: gestao-governanca/cobit
+    kind: cloze
+    pool: review
+    source: "ISACA — visão geral do COBIT 2019 (fonte secundária — auditar)"
+    front: "O que é o COBIT 2019 e quem o publica?"
+    back: >
+      Framework da ISACA para governança e gestão de tecnologia da informação
+      nas empresas, com foco central na criação de valor.
+
+  - id: cobit2019-cinco-dominios
+    topic: gestao-governanca/cobit
+    kind: cloze
+    pool: review
+    source: "ISACA — visão geral do COBIT 2019 (fonte secundária — auditar)"
+    front: "COBIT 2019 — quais são os 5 domínios de objetivos (siglas)?"
+    back: "EDM, APO, BAI, DSS e MEA."
+
+  - id: cobit2019-edm-nome
+    topic: gestao-governanca/cobit
+    kind: cloze
+    pool: review
+    source: "ISACA — visão geral do COBIT 2019 (fonte secundária — auditar)"
+    front: "COBIT 2019 — o que significa a sigla EDM e qual seu papel?"
+    back: >
+      Evaluate, Direct and Monitor. É o único domínio de GOVERNANÇA: o órgão
+      de governo avalia opções estratégicas, direciona a gestão sênior e
+      monitora a realização da estratégia.
+
+  - id: cobit2019-governanca-vs-gestao
+    topic: gestao-governanca/cobit
+    kind: cloze
+    pool: review
+    source: "ISACA — visão geral do COBIT 2019 (fonte secundária — auditar)"
+    front: "COBIT 2019 — diferença entre governança e gestão"
+    back: >
+      Governança determina QUEM toma as decisões (domínio EDM). Gestão
+      recebe a responsabilidade de direcionar e IMPLEMENTAR essas decisões
+      (domínios APO, BAI, DSS, MEA).
+    comment: >
+      Distrator clássico: a FGV troca "governança" por "gestão" nas frases
+      de definição.
+
+  - id: cobit2019-apo-nome
+    topic: gestao-governanca/cobit
+    kind: cloze
+    pool: review
+    source: "ISACA — visão geral do COBIT 2019 (fonte secundária — auditar)"
+    front: "COBIT 2019 — o que significa a sigla APO e o que esse domínio trata?"
+    back: >
+      Align, Plan and Organize. Domínio de gestão que trata da organização,
+      estratégia e atividades de suporte gerais para TI.
+
+  - id: cobit2019-bai-nome
+    topic: gestao-governanca/cobit
+    kind: cloze
+    pool: review
+    source: "ISACA — visão geral do COBIT 2019 (fonte secundária — auditar)"
+    front: "COBIT 2019 — o que significa a sigla BAI e o que esse domínio trata?"
+    back: >
+      Build, Acquire and Implement. Domínio de gestão que trata da definição,
+      aquisição e implementação de soluções de TI e sua integração aos
+      processos de negócio.
+
+  - id: cobit2019-dss-nome
+    topic: gestao-governanca/cobit
+    kind: cloze
+    pool: review
+    source: "ISACA — visão geral do COBIT 2019 (fonte secundária — auditar)"
+    front: "COBIT 2019 — o que significa a sigla DSS e o que esse domínio trata?"
+    back: >
+      Deliver, Service and Support. Domínio de gestão que trata da operação
+      diária e do gerenciamento de serviços de TI.
+
+  - id: cobit2019-mea-nome
+    topic: gestao-governanca/cobit
+    kind: cloze
+    pool: review
+    source: "ISACA — visão geral do COBIT 2019 (fonte secundária — auditar)"
+    front: "COBIT 2019 — o que significa a sigla MEA e o que esse domínio trata?"
+    back: >
+      Monitor, Evaluate and Assess. Domínio de gestão que trata do
+      monitoramento e avaliação do desempenho de TI e da conformidade com
+      requisitos internos e externos.
+
+  - id: cobit2019-vs-cobit5-novos-objetivos
+    topic: gestao-governanca/cobit
+    kind: cloze
+    pool: review
+    source: "ISACA — visão geral do COBIT 2019 (fonte secundária — auditar)"
+    front: "O que o COBIT 2019 introduziu de novo em relação ao COBIT 5?"
+    back: >
+      Três novos objetivos de gestão: APO14 (Managed Data), BAI11 (Managed
+      Projects) e MEA04 (Managed Assurance).
+
+  - id: cobit2019-design-factors
+    topic: gestao-governanca/cobit
+    kind: cloze
+    pool: review
+    source: "Busca geral (fonte secundária de menor confiança — auditar com atenção)"
+    front: "COBIT 2019 — o que são os 'design factors' e, aproximadamente, quantos existem?"
+    back: >
+      Fatores (cerca de 11) que a organização pontua — como estratégia,
+      metas, perfil de risco e modelo de sourcing — para derivar um sistema
+      de governança sob medida. Conceito novo em relação ao COBIT 5.
+    comment: >
+      Confiança menor que os outros itens desta área — não consegui
+      confirmar o número exato de 11 em fonte que eu pudesse ler por inteiro.
+
+  # --- PMBOK 7ª edição — primeiro lote, fonte secundária --------------------
+
+  - id: pmbok6-grupos-processos
+    topic: gestao-governanca/pmbok
+    kind: cloze
+    pool: review
+    source: "Wikipedia — PMBOK Guide, seção de edições (fonte secundária — auditar)"
+    front: "PMBOK 6ª edição — quais são os 5 grupos de processos?"
+    back: "Iniciação, Planejamento, Execução, Monitoramento e Controle, Encerramento."
+    comment: >
+      O edital pede a 7ª edição, mas item 2 do programa ainda cita "grupos de
+      processos e área de conhecimento" — conceitos da 6ª. Guarde os dois.
+
+  - id: pmbok6-areas-conhecimento
+    topic: gestao-governanca/pmbok
+    kind: cloze
+    pool: review
+    source: "Wikipedia — PMBOK Guide, seção de edições (fonte secundária — auditar)"
+    front: "PMBOK 6ª edição — quais são as 10 áreas de conhecimento?"
+    back: >
+      Integração, Escopo, Cronograma, Custos, Qualidade, Recursos,
+      Comunicações, Riscos, Aquisições e Partes Interessadas.
+
+  - id: pmbok7-mudanca-paradigma
+    topic: gestao-governanca/pmbok
+    kind: cloze
+    pool: review
+    source: "MPUG — PMBOK7 Principles and Performance Domains (fonte secundária — auditar)"
+    front: "PMBOK 7ª edição — qual a mudança de paradigma em relação à 6ª?"
+    back: >
+      Saiu de uma abordagem baseada em PROCESSOS (5 grupos de processos, 10
+      áreas de conhecimento) para uma abordagem baseada em PRINCÍPIOS: 12
+      princípios de gerenciamento de projetos e 8 domínios de desempenho
+      (performance domains), que substituem as áreas de conhecimento.
+
+  - id: pmbok7-dominios-desempenho
+    topic: gestao-governanca/pmbok
+    kind: cloze
+    pool: review
+    source: "NÃO VERIFICADO NESTA SESSÃO — 3 tentativas de busca de fonte deram erro 403. Confirme contra o Guide ou um resumo confiável antes de estudar por este card."
+    front: "PMBOK 7ª edição — quais são os 8 domínios de desempenho (performance domains)?"
+    back: >
+      Stakeholders, Team, Development Approach and Life Cycle, Planning,
+      Project Work, Delivery, Measurement, Uncertainty.
+    comment: >
+      ÚNICO item deste lote que não bateu contra nenhuma fonte externa nesta
+      sessão — vem só da minha memória de treinamento. Verifique antes de
+      confiar; se estiver errado, me avise para eu corrigir e eu busco de
+      novo por outro caminho.
+
+  - id: pmbok8-existe-atencao
+    topic: gestao-governanca/pmbok
+    kind: cloze
+    pool: review
+    source: "Busca geral, 2026-09-01 (fonte secundária — auditar)"
+    front: "Cuidado ao estudar PMBOK por conta própria: o que mudou na 8ª edição (2025) e por que isso importa para esta prova?"
+    back: >
+      A 8ª edição reduziu para 6 princípios e 7 domínios de desempenho
+      (Governance, Scope, Schedule, Finance, Stakeholders, Resources, Risk),
+      diferentes da 7ª. O edital pede explicitamente PMBOK 7ª edição —
+      material novo encontrado buscando "PMBOK" pode já ser da 8ª e confundir.

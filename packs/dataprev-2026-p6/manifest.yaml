@@ -15,9 +15,15 @@ fast_answer_seconds: 20   # 3.1
 boss_unlock_ratio: 0.70   # 3.6
 
 files:
-  - itil.yaml
-  # - cobit.yaml
-  # - pmbok.yaml
-  # - lei-13303.yaml
-  # - in-sgd.yaml
-  # - infra-redes-bd.yaml
+  # Módulo II — Conhecimentos Específicos, Perfil 6 (30 questões, peso 2,5).
+  # A divisão entre estas 4 áreas não é publicada no edital — 'weight' é
+  # estimativa nossa, não frequência histórica FGV (2.4 revisado 2026-09-01).
+  - gestao-governanca.yaml   # PMBOK7, ITILv4, COBIT2019, BPMN, ISOs, INs SGD, Lei 13.303, Kanban
+  - suporte-infra.yaml       # hardware, storage, virtualização, cluster, nuvem, web
+  - banco-dados.yaml         # modelagem, SQL, SGBD, NoSQL, data lake
+  - redes.yaml               # conceitos de redes, OSI, TCP/IP, protocolos
+
+  # Módulo I — Conhecimentos Gerais (40 questões, peso 1). Zerar qualquer
+  # disciplina aqui elimina o candidato mesmo com nota alta no Módulo II
+  # (edital 9.17.b). Cota mínima: não cobrir a fundo, só não zerar.
+  - modulo1.yaml             # Português, Inglês, Raciocínio Lógico, IA, LAI/LGPD/Marco Civil/Lei 12.737

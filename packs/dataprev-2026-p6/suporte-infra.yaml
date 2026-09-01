@@ -1,0 +1,304 @@
+# Módulo II, área "Suporte e Infraestrutura" (edital Anexo I, Perfil 6).
+# O item 1 do edital (Arquitetura de Rede TCP/IP) fica em redes.yaml, que tem
+# seção própria e mais detalhada — evita duplicar a mesma árvore de tópicos
+# em dois arquivos.
+#
+# Conhecimento técnico geral e estável (RAID, SAN/NAS, virtualização, nuvem),
+# não depende de um livro pago — risco de erro bem menor que ITIL/COBIT/PMBOK.
+# Ainda assim, 'source' identifica se veio de busca verificada ou de
+# conhecimento geral não conferido nesta sessão.
+
+topics:
+  - id: suporte-infra
+    name: Suporte e Infraestrutura
+    weight: 2.0
+    order: 2
+
+  - id: suporte-infra/hardware-servidores
+    name: Arquitetura de Hardware de Servidores
+    weight: 2.0
+    order: 1
+
+  - id: suporte-infra/armazenamento
+    name: Armazenamento de Dados
+    weight: 2.5
+    order: 2
+
+  - id: suporte-infra/virtualizacao
+    name: Virtualização e Consolidação de Servidores
+    weight: 2.5
+    order: 3
+
+  - id: suporte-infra/cluster
+    name: Cluster (Alta Disponibilidade e Performance)
+    weight: 2.0
+    order: 4
+
+  - id: suporte-infra/mensageria
+    name: Mensageria
+    weight: 1.5
+    order: 5
+
+  - id: suporte-infra/nuvem
+    name: Grid, Nuvem Pública/Privada e Bare Metal
+    weight: 2.0
+    order: 6
+
+  - id: suporte-infra/servidores-aplicacao-web
+    name: Servidores de Aplicação e Web
+    weight: 2.0
+    order: 7
+
+items:
+
+  # --- Hardware de servidores ------------------------------------------------
+
+  - id: infra-caracteristicas-hardware-servidor
+    topic: suporte-infra/hardware-servidores
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que diferencia hardware de servidor de hardware de desktop comum, tipicamente?"
+    back: >
+      Fontes de alimentação redundantes, discos hot-swap (troca sem
+      desligar), memória ECC (correção de erro), e interface de
+      gerenciamento remoto fora de banda (ex.: iLO, iDRAC, IPMI) para acesso
+      mesmo com o SO travado.
+
+  - id: infra-fator-forma-servidor
+    topic: suporte-infra/hardware-servidores
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Quais são os 3 fatores de forma típicos de servidor físico?"
+    back: "Torre (tower), rack (montável em rack padrão 19”) e blade (lâmina, em chassi compartilhado)."
+
+  # --- Armazenamento de dados -------------------------------------------------
+
+  - id: infra-raid0
+    topic: suporte-infra/armazenamento
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "RAID 0 — o que faz e qual sua característica de risco?"
+    back: >
+      Distribui dados entre discos (striping) para ganhar desempenho. Não
+      tem redundância — a falha de um disco perde todos os dados do
+      conjunto.
+
+  - id: infra-raid1
+    topic: suporte-infra/armazenamento
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "RAID 1 — o que faz e qual sua capacidade útil?"
+    back: >
+      Espelha (mirroring) os dados entre dois discos idênticos. Capacidade
+      útil é 50% do total instalado, mas tolera a falha de 1 disco.
+
+  - id: infra-raid5
+    topic: suporte-infra/armazenamento
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "RAID 5 — como garante redundância e quantos discos pode perder sem perder dados?"
+    back: >
+      Usa paridade distribuída entre todos os discos do conjunto. Tolera a
+      falha de 1 disco sem perda de dados.
+
+  - id: infra-raid6
+    topic: suporte-infra/armazenamento
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "RAID 6 — em que difere do RAID 5?"
+    back: >
+      Usa paridade dupla distribuída (em vez de simples), tolerando a falha
+      de 2 discos simultaneamente, ao custo de mais capacidade reservada
+      para paridade.
+
+  - id: infra-raid10
+    topic: suporte-infra/armazenamento
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "RAID 10 (1+0) — o que combina?"
+    back: >
+      Combina espelhamento (RAID 1) com distribuição (RAID 0): pares de
+      discos espelhados, distribuídos em stripe. Bom desempenho e
+      redundância, ao custo de 50% da capacidade total.
+
+  - id: infra-san-vs-nas
+    topic: suporte-infra/armazenamento
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Diferença entre SAN e NAS"
+    back: >
+      SAN (Storage Area Network): rede dedicada de alta velocidade (Fibre
+      Channel ou iSCSI) que expõe armazenamento em nível de BLOCO, como se
+      fosse um disco local. NAS (Network Attached Storage): expõe
+      armazenamento em nível de ARQUIVO (CIFS/NFS) pela rede comum.
+
+  - id: infra-replicacao-sincrona-assincrona
+    topic: suporte-infra/armazenamento
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Replicação de dados síncrona vs assíncrona — diferença e trade-off"
+    back: >
+      Síncrona: a escrita só é confirmada após gravar nos dois lados —
+      zero perda de dados, mas latência maior e limitada por distância.
+      Assíncrona: a escrita é confirmada localmente e replicada depois —
+      maior alcance geográfico e desempenho, com risco de perda de dados
+      recentes em caso de falha.
+
+  # --- Virtualização e consolidação ------------------------------------------
+
+  - id: infra-hypervisor-tipo1-tipo2
+    topic: suporte-infra/virtualizacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Hypervisor tipo 1 vs tipo 2 — diferença"
+    back: >
+      Tipo 1 (bare-metal): roda diretamente sobre o hardware, sem sistema
+      operacional hospedeiro (ex.: VMware ESXi, Hyper-V em modo servidor).
+      Tipo 2 (hosted): roda como aplicação sobre um SO já instalado (ex.:
+      VirtualBox, VMware Workstation).
+
+  - id: infra-vmware-hyperv
+    topic: suporte-infra/virtualizacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "VMware (ESXi/vSphere) e Hyper-V — o que têm em comum quanto ao tipo de hypervisor?"
+    back: >
+      Ambos são hypervisors tipo 1 (bare-metal) usados para virtualização de
+      servidores em produção — diferem no fabricante (VMware/Broadcom vs
+      Microsoft) e no ecossistema de gestão (vCenter vs System Center).
+
+  - id: infra-consolidacao-servidores
+    topic: suporte-infra/virtualizacao
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que é consolidação de servidores?"
+    back: >
+      Reduzir o número de servidores físicos concentrando várias cargas de
+      trabalho (antes em máquinas separadas) como máquinas virtuais em menos
+      hardware físico, melhorando taxa de utilização e reduzindo custo.
+
+  # --- Cluster -----------------------------------------------------------------
+
+  - id: infra-cluster-alta-disponibilidade
+    topic: suporte-infra/cluster
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Cluster de alta disponibilidade — objetivo e mecanismo básico"
+    back: >
+      Garantir que um serviço continue disponível se um nó falhar. Usa
+      failover: um nó ativo assume a carga se o nó primário parar de
+      responder (heartbeat).
+
+  - id: infra-cluster-performance
+    topic: suporte-infra/cluster
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Cluster de performance (HPC / load balancing) — objetivo, em que difere do cluster de alta disponibilidade"
+    back: >
+      Objetivo é dividir carga de processamento entre vários nós
+      simultaneamente para ganhar desempenho total, não apenas continuar
+      funcionando se um nó cair — o foco é capacidade agregada, não
+      tolerância a falha isolada.
+
+  # --- Mensageria ---------------------------------------------------------------
+
+  - id: infra-mensageria-conceito
+    topic: suporte-infra/mensageria
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que é um sistema de mensageria e por que ele desacopla sistemas?"
+    back: >
+      Middleware que troca mensagens assíncronas entre produtor e
+      consumidor via fila ou tópico. Desacopla porque o produtor não precisa
+      que o consumidor esteja disponível no momento do envio — a mensagem
+      fica retida até ser processada.
+
+  # --- Nuvem ----------------------------------------------------------------
+
+  - id: infra-grid-vs-cluster
+    topic: suporte-infra/nuvem
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Computação em grid vs cluster — diferença de acoplamento"
+    back: >
+      Cluster: nós fortemente acoplados, geralmente na mesma rede/local,
+      dedicados a uma tarefa comum. Grid: nós fracamente acoplados,
+      frequentemente distribuídos geograficamente e administrativamente
+      independentes, cooperando por tarefa.
+
+  - id: infra-nuvem-publica-privada-hibrida
+    topic: suporte-infra/nuvem
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Nuvem pública, privada e híbrida — diferença"
+    back: >
+      Pública: infraestrutura compartilhada, provida por terceiro (AWS,
+      Azure, GCP). Privada: infraestrutura dedicada a uma organização,
+      dentro ou fora do seu data center. Híbrida: combina as duas, com
+      integração entre elas.
+
+  - id: infra-bare-metal
+    topic: suporte-infra/nuvem
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que é um ambiente 'bare metal' em contraste com nuvem/virtualização?"
+    back: >
+      Servidor físico dedicado, sem camada de virtualização (hypervisor)
+      entre o hardware e o sistema operacional/aplicação — usado quando se
+      precisa do desempenho máximo do hardware ou de isolamento total.
+
+  # --- Servidores de aplicação e web -----------------------------------------
+
+  - id: infra-servidor-web-vs-aplicacao
+    topic: suporte-infra/servidores-aplicacao-web
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Diferença entre servidor web e servidor de aplicação"
+    back: >
+      Servidor web (Apache, Nginx, IIS) atende requisições HTTP e serve
+      conteúdo estático/proxy. Servidor de aplicação executa a lógica de
+      negócio da aplicação (regras, transações), geralmente atrás do
+      servidor web.
+
+  - id: infra-nginx-caracteristica
+    topic: suporte-infra/servidores-aplicacao-web
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "O que caracteriza o Nginx frente ao Apache tradicional?"
+    back: >
+      Arquitetura orientada a eventos (event-driven, assíncrona) em vez de
+      um processo/thread por conexão — lida com muito mais conexões
+      simultâneas usando menos memória, e é muito usado como proxy reverso e
+      load balancer.
+
+  - id: infra-object-store-s3
+    topic: suporte-infra/servidores-aplicacao-web
+    kind: cloze
+    pool: review
+    source: "Conhecimento técnico geral"
+    front: "Armazenamento orientado a objetos (object store), estilo S3 — como organiza os dados e como acessa?"
+    back: >
+      Guarda dados como objetos (dado + metadados + identificador único)
+      dentro de "buckets", sem hierarquia de pastas real. Acesso via API
+      REST/HTTP, não por sistema de arquivos ou bloco — diferente de SAN
+      (bloco) e NAS (arquivo).
